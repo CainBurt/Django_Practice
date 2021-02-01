@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <!--This sorts the data for each post into the format for the page. Data comes from blog/views.py file home function-->
+<article class="media content-section">
+    <img class="rounded-circle article-img" src= "{{ object.poster.profile.image.url }}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ object.poster }}</a>
+            <small class="text-muted">{{ object.date|date:"F d, Y" }}</small>
+            {% if object.poster == user %}
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href= "{% url 'postupdate-page' object.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href= "{% url 'postdelete-page' object.id %}">Delete</a>
+                </div>
+            {% endif %}
+        </div>
+        <h2 class="article-title">{{ object.title }}</h2>
+        <p class="article-content">{{ object.body }}</p>
+    </div>
+</article>
+{% endblock content %}
